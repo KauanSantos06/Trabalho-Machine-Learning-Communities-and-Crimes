@@ -6,29 +6,33 @@
 **Integrantes:** Artur Martins, Guilherme Gomes, Kauan Santos
 
 ## 🎯 Objetivo do Projeto
-Este projeto aplica o fluxo completo de Machine Learning sobre o dataset público **"Communities and Crime"** (UCI Machine Learning Repository). O objetivo é analisar as variáveis socioeconômicas e prever a taxa de crimes violentos por 100 mil habitantes (`ViolentCrimesPerPop`) utilizando **Regressão Linear Múltipla**, comparando seu desempenho com um modelo de referência (Baseline).
+Este projeto aplica o fluxo completo de Machine Learning sobre o dataset público **"Communities and Crime"** (UCI Machine Learning Repository). O foco central é analisar as variáveis socioeconômicas e prever a taxa de crimes violentos por 100 mil habitantes (`ViolentCrimesPerPop`).
+
+Conforme as diretrizes atualizadas da disciplina, o escopo do projeto foi focado na aplicação e interpretação da **Regressão Linear Múltipla**, comparando seu desempenho contra um modelo de referência (Baseline) e validando os pressupostos estatísticos através da análise de resíduos.
 
 ## 📁 Estrutura do Repositório
-- `01_IntegranteA_Dados_EDA_Baseline.ipynb`: Notebook da Parte 1 (Obtenção, EDA, Pré-processamento, Split, Baseline).
-- `02_IntegranteB_RegressaoLinear.ipynb`: Notebook da Parte 2 (Regressão Linear Múltipla, Análise de Coeficientes e Resíduos).
-- `03_IntegranteC_Avaliacao.ipynb`: Notebook da Parte 3 (Validação Cruzada e Quadro Comparativo Final).
-- `scripts/download_data.py`: Script automatizado para baixar o dataset original.
-- `requirements.txt`: Dependências do projeto.
-- `AUTORES.md`: Divisão de responsabilidades.
-- `ficha_dataset.txt`: Metadados do dataset gerados após o tratamento.
+Para facilitar a execução e a avaliação, todo o fluxo de trabalho foi consolidado em um único arquivo:
+
+- `Projeto_AM_Completo.ipynb`: Notebook principal contendo todas as etapas (Obtenção de Dados, EDA, Pré-processamento, Split, Baseline, Regressão Linear e Validação).
+- `requirements.txt`: Dependências do projeto (bibliotecas e versões).
+- `AUTORES.md`: Declaração da divisão de responsabilidades da equipe.
+- `scripts/download_data.py`: Script auxiliar para baixar o dataset original da UCI.
+- `.gitignore`: Arquivo para evitar o envio de pastas desnecessárias e arquivos temporários.
 
 ## ⚙️ Como Reproduzir o Projeto (Passo a Passo)
 
-**Pré-requisitos:**
-- Conta no Google (para uso do Google Colab e Google Drive).
-- Google Drive montado com a pasta `MachineLearning2026/dados` (ou utilize a execução local).
+O projeto foi desenhado para rodar perfeitamente no **Google Colab**, com fallback automático para execução local.
 
-**Passo 1:** Faça o upload dos notebooks no Google Colab.
-**Passo 2:** Execute o notebook **Parte 1**. Ele fará o download (ou buscará do Drive) o arquivo `communities.data`, realizará a limpeza, treinará o Baseline e salvará os artefatos (`.npy` e `.pkl`) na pasta `modelos` do seu Drive.
-**Passo 3:** Execute o notebook **Parte 2**. Ele carregará os artefatos da Parte 1, treinará a Regressão Linear Múltipla e plotará o diagnóstico de resíduos.
-**Passo 4:** Execute o notebook **Parte 3**. Ele aplicará a Validação Cruzada K-Fold e gerará o quadro comparativo final contra o baseline.
+**Passo 1:** Abra o arquivo `Projeto_AM_Completo.ipynb` no Google Colab.
+**Passo 2:** No menu superior, clique em **`Ambiente de execução` > `Executar tudo`** (Run all).
+**Passo 3:** O próprio notebook gerenciará a obtenção dos dados:
+   - Ele tentará buscar os arquivos na pasta `/content/drive/MyDrive/MachineLearning2026/dados`.
+   - Caso os arquivos não existam (ex: rodando na máquina de outro professor/aluno), o código fará o **download automático** direto do repositório da UCI e salvará na memória.
+**Passo 4:** O notebook executará todas as etapas em sequência: Limpeza -> EDA -> Split (70/15/15) -> Padronização (sem vazamento) -> Baseline -> Regressão Linear -> Análise de Resíduos.
 
-## 🔬 Metodologia e Resultados
-- **Baseline (DummyRegressor):** RMSE de ~0.21 (Piso de performance).
-- **Regressão Linear Múltipla:** Modelo escolhido para produção devido à sua **interpretabilidade**, permitindo que gestores públicos entendam o impacto de cada variável (ex: pobreza, desemprego) na criminalidade.
-- **Atlas da Violência (Referência):** Utilizado como base conceitual comparativa para discutir os vieses socioeconômicos no Brasil, sem integração direta de dados por falta de chave geográfica comum (EUA vs. Brasil).
+## 🔬 Metodologia e Resultados Esperados
+- **Baseline (DummyRegressor):** Prevê sempre a média da criminalidade. Serve como nosso "piso" de performance (RMSE ≈ 0.21).
+- **Regressão Linear Múltipla:** Modelo escolhido para produção devido à sua **alta interpretabilidade**. Ele permitirá afirmar, com base nos coeficientes, o peso exato de variáveis como pobreza e desemprego na criminalidade.
+- **Protocolo Rigoroso:** Semente global fixada (`SEED=42`) e padronização (`StandardScaler`) ajustada estritamente nos dados de treino para evitar vazamento de dados (Data Leakage).
+
+
