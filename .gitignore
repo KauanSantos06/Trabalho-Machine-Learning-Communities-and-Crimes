@@ -1,0 +1,23 @@
+# Pastas de sistema e do Google Colab
+drive/
+.config/
+sample_data/
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Dados gerados e artefatos pesados (modelos salvos)
+# (Mantenha o download_data.py e não suba os CSVs gigantes se não for necessário)
+dados/*.data
+dados/*.names
+modelos/*.npy
+modelos/*.pkl
+*.csv
+
+# Arquivos de ambiente virtual (se houver)
+venv/
+env/
+.env
